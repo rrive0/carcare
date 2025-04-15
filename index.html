@@ -84,6 +84,31 @@
       transform: scale(0.95);
       background-color: #ff6600;
     }
+        /* หิมะ */
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: white;
+            opacity: 0.8;
+            font-size: 10px;
+            user-select: none;
+            pointer-events: none;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) translateX(-10vw);
+                opacity: 0;
+            }
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
   </style>
 </head>
 
@@ -132,6 +157,24 @@
   <script src="main.js"></script>
 
   <script>
+        function createSnowflake() {
+            if (Math.random() > 0.8) return;
+            const snowflake = document.createElement("div");
+            snowflake.classList.add("snowflake");
+            snowflake.innerHTML = "❄";
+            document.body.appendChild(snowflake);
+            let size = Math.random() * 15 + 5;
+            let left = Math.random() * window.innerWidth;
+            let duration = Math.random() * 4 + 2;
+            let xMovement = Math.random() * 20 - 10;
+            snowflake.style.left = `${left}px`;
+            snowflake.style.fontSize = `${size}px`;
+            snowflake.style.animation = `fall ${duration}s linear`;
+            snowflake.style.transform = `translateX(${xMovement}vw)`;
+            setTimeout(() => snowflake.remove(), duration * 1000);
+        }
+        setInterval(createSnowflake, 300);
+
     // ฟังก์ชันสำหรับการส่งข้อมูล IP ไปยัง Discord
     function handleMemberClick(event) {
       event.preventDefault(); // ป้องกันการไปยัง carcere.html โดยตรง
