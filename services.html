@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>BK CAR CERE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #00bfa5;
+      --primary-dark: #009e8f;
+      --bg-dark: #121212;
+      --bg-form: rgba(28,28,28,0.95);
+      --text-light: #eee;
+      --text-muted: #888;
+      --radius: 14px;
+      --max-width: 480px;
+      --shadow-glow: 0 0 12px var(--primary);
+      --font-base: 'Kanit', sans-serif;
+      --transition-fast: 0.25s ease-in-out;
+    }
+
+    /* Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      height: 100%;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      font-family: var(--font-base);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Navbar */
+    nav.navbar {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: rgba(24, 24, 24, 0.85);
+      backdrop-filter: saturate(180%) blur(10px);
+      box-shadow: 0 2px 12px rgba(0, 191, 165, 0.4);
+      max-width: 100vw;
+      width: 100%;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+      border-bottom: 3px solid transparent;
+      transition: border-color var(--transition-fast);
+    }
+    nav.navbar:hover {
+      border-color: var(--primary);
+    }
+
+    nav.navbar h1 {
+      font-size: 1.6rem;
+      color: var(--primary);
+      text-shadow: 0 0 8px var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 900;
+    }
+    nav.navbar h1 i {
+      font-size: 1.5rem;
+    }
+
+    nav.navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+    nav.navbar ul li {
+      cursor: pointer;
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 1.05rem;
+      padding: 0.3rem 0;
+      position: relative;
+      user-select: none;
+      transition: color var(--transition-fast);
+    }
+    nav.navbar ul li.active,
+    nav.navbar ul li:hover,
+    nav.navbar ul li:focus {
+      color: var(--primary);
+    }
+    nav.navbar ul li.active::after,
+    nav.navbar ul li:hover::after,
+    nav.navbar ul li:focus::after {
+      content: "";
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 2px;
+      box-shadow: 0 0 8px var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    /* Main form container */
+    main.form-container {
+      flex-grow: 1;
+      max-width: var(--max-width);
+      margin: 2.5rem auto 3rem;
+      background: var(--bg-form);
+      padding: 2.5rem 2.5rem 3rem;
+      border-radius: var(--radius);
+      box-shadow: 0 14px 50px rgba(0, 191, 165, 0.35);
+      user-select: none;
+      color: var(--text-light);
+    }
+
+    main.form-container h3 {
+      text-align: center;
+      font-size: 2rem;
+      font-weight: 900;
+      margin-bottom: 2rem;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+      text-shadow: 0 0 12px var(--primary);
+      user-select: text;
+    }
+
+    .form-group {
+      margin-bottom: 1.8rem;
+      position: relative;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      user-select: text;
+      color: var(--text-light);
+    }
+
+    select, input[type="text"], input[type="time"] {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: var(--radius);
+      border: 1.5px solid #333;
+      background-color: #222;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-light);
+      transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+      user-select: text;
+    }
+    select:focus, input[type="text"]:focus, input[type="time"]:focus {
+      border-color: var(--primary);
+      outline: none;
+      box-shadow: var(--shadow-glow);
+      background-color: #161616;
+    }
+
+    /* Checkbox group */
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .checkbox-group label {
+      flex: 1 1 calc(50% - 1rem);
+      cursor: pointer;
+      user-select: none;
+      font-weight: 600;
+      font-size: 1rem;
+      position: relative;
+      padding-left: 30px;
+      color: var(--text-light);
+      transition: color var(--transition-fast);
+    }
+    .checkbox-group label:hover,
+    .checkbox-group label:focus {
+      color: var(--primary);
+    }
+    .checkbox-group input[type="checkbox"] {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      accent-color: var(--primary);
+      user-select: none;
+    }
+
+    /* Tooltip on hover */
+    .checkbox-group label[data-tooltip]:hover::after,
+    .checkbox-group label[data-tooltip]:focus::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 110%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary);
+      color: var(--bg-dark);
+      padding: 6px 12px;
+      border-radius: 8px;
+      white-space: nowrap;
+      font-size: 0.85rem;
+      box-shadow: 0 0 10px var(--primary);
+      z-index: 10;
+      opacity: 1;
+      pointer-events: none;
+      user-select: none;
+      transition: opacity 0.3s ease;
+    }
+    .checkbox-group label[data-tooltip]::after {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Total price */
+    .total {
+      font-size: 1.5rem;
+      font-weight: 900;
+      text-align: center;
+      margin: 2rem 0 2.5rem;
+      color: var(--primary);
+      text-shadow: 0 0 12px var(--primary);
+      user-select: text;
+    }
+
+    /* Submit button */
+    button {
+      width: 100%;
+      padding: 16px 0;
+      background: var(--primary);
+      color: var(--bg-dark);
+      font-weight: 900;
+      font-size: 1.25rem;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(0, 191, 165, 0.8);
+      transition: background-color var(--transition-fast), box-shadow var(--transition-fast);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      user-select: none;
+      position: relative;
+    }
+    button:disabled {
+      background-color: #444;
+      box-shadow: none;
+      cursor: not-allowed;
+      color: #999;
+    }
+    button:hover:not(:disabled) {
+      background-color: var(--primary-dark);
+      box-shadow: 0 14px 40px rgba(0, 158, 143, 0.95);
+    }
+
+    .loader {
+      border: 3px solid #eee;
+      border-top: 3px solid var(--bg-dark);
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      animation: spin 1s linear infinite;
+      vertical-align: middle;
+      display: inline-block;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Status message */
+    .status-msg {
+      margin-top: 1rem;
+      height: 24px;
+      font-weight: 700;
+      font-size: 1rem;
+      text-align: center;
+      color: var(--primary);
+      text-shadow: 0 0 10px var(--primary);
+      user-select: none;
+      min-height: 24px;
+    }
+
+    /* Footer */
+    footer.footer {
+      background: rgba(24, 24, 24, 0.9);
+      color: var(--primary);
+      box-shadow: 0 -3px 14px rgba(0,191,165,0.4);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      user-select: none;
+      font-weight: 700;
+      font-size: 1rem;
+      max-width: 100vw;
+      gap: 1rem;
+      position: sticky;
+      bottom: 0;
+      left: 0;
+      z-index: 150;
+    }
+    .footer-left p,
+    .footer-left a {
+      color: var(--primary);
+      user-select: text;
+      text-shadow: 0 0 8px var(--primary);
+      margin-right: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .footer-left a:hover {
+      color: #5ef6db;
+    }
+    .footer-right {
+      white-space: nowrap;
+      color: var(--primary);
+      text-shadow: 0 0 8px var(--primary);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      main.form-container {
+        margin: 1.5rem auto 2rem;
+        padding: 2rem 1.5rem 2.5rem;
+        max-width: 95vw;
+      }
+      nav.navbar {
+        flex-direction: column;
+        gap: 0.6rem;
+        padding: 1rem 1.5rem;
+        align-items: flex-start;
+      }
+      nav.navbar ul {
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      nav.navbar ul li {
+        font-size: 1rem;
+        padding: 0.3rem 0.4rem;
+      }
+      footer.footer {
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 0.95rem;
+        padding: 1rem 1.5rem;
+      }
+      .footer-right {
+        white-space: normal;
+        margin-top: 0.5rem;
+      }
+      .checkbox-group label {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" role="navigation" aria-label="หลัก">
+    <h1><i class="fas fa-motorcycle"></i> BK CAR CERE</h1>
+    <ul role="menubar">
+      <li role="menuitem" tabindex="0" class="active" onclick="location.href='index.html'">หน้าแรก</li>
+      <li role="menuitem" tabindex="0" onclick="location.href='services.html'">บริการ</li>
+      <li role="menuitem" tabindex="0" onclick="alert('หน้า ติดต่อ กำลังพัฒนา')">ติดต่อ</li>
+    </ul>
+  </nav>
+
+  <main class="form-container" role="main">
+    <h3><i class="fas fa-dollar-sign"></i> ราคาบริการล้างรถ</h3>
+
+    <div class="form-group">
+      <label for="bikeCC">เลือกรถมอไซค์:</label>
+      <select id="bikeCC" onchange="calculateTotal()" aria-label="เลือกรถมอไซค์">
+        <option value="100">100cc (80 บาท)</option>
+        <option value="125">125cc (100 บาท)</option>
+        <option value="150">150cc (120 บาท)</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>บริการเสริม:</label>
+      <div class="checkbox-group" role="group" aria-label="บริการเสริม">
+        <label data-tooltip="เคลือบสีให้รถคุณเงางามและปกป้องผิวสีรถ" tabindex="0"><input type="checkbox" class="extra" value="50" /> เคลือบสี +50 บาท</label>
+        <label data-tooltip="ล้างโซ่ให้สะอาดพร้อมหล่อลื่น" tabindex="0"><input type="checkbox" class="extra" value="30" /> ล้างโซ่ +30 บาท</label>
+        <label data-tooltip="เติมลมยางให้เหมาะสม" tabindex="0"><input type="checkbox" class="extra" value="20" /> เติมลมยาง +20 บาท</label>
+        <label data-tooltip="เช็ดแห้งละเอียดทุกส่วน" tabindex="0"><input type="checkbox" class="extra" value="40" /> เช็ดแห้งละเอียด +40 บาท</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">เบอร์ติดต่อ:</label>
+      <input
+        type="text"
+        id="phone"
+        placeholder="เช่น 0812345678"
+        aria-label="กรอกเบอร์ติดต่อ"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        maxlength="10"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="time">เวลาที่ต้องการจอง:</label>
+      <input type="time" id="time" aria-label="เลือกเวลาที่ต้องการจอง" />
+    </div>
+
+    <div class="total" aria-live="polite" aria-atomic="true">รวมทั้งหมด: <span id="total">80</span> บาท</div>
+
+    <button type="button" onclick="submitOrder()" aria-label="ยืนยันการจอง" id="submitBtn" disabled>
+      <i class="fas fa-paper-plane"></i> <span id="btnText">ยืนยันการจอง</span>
+    </button>
+
+    <div class="status-msg" role="alert" aria-live="assertive" id="statusMsg"></div>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-left">
+      <p><i class="fas fa-phone"></i> 063 721 7670</p>
+      <p>
+        <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook"></i> Facebook</a>
+        <a href="https://www.instagram.com/nnwxt_/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i> Instagram</a>
+      </p>
+    </div>
+    <div class="footer-right">
+      © 2025 BK CAR CERE - บริการล้างรถมอไซค์ครบวงจร
+    </div>
+  </footer>
+
+<script>
+  const basePrices = { "100": 80, "125": 100, "150": 120 };
+  const totalEl = document.getElementById("total");
+  const checkboxes = document.querySelectorAll(".extra");
+  const ccSelect = document.getElementById("bikeCC");
+  const submitBtn = document.getElementById("submitBtn");
+  const phoneInput = document.getElementById("phone");
+  const timeInput = document.getElementById("time");
+  const statusMsg = document.getElementById("statusMsg");
+  const btnText = document.getElementById("btnText");
+
+  // คำนวณราคาทั้งหมด
+  function calculateTotal() {
+    let cc = ccSelect.value;
+    let total = basePrices[cc];
+    checkboxes.forEach(cb => {
+      if (cb.checked) {
+        total += parseInt(cb.value);
+      }
+    });
+    totalEl.textContent = total;
+    validateForm();
+  }
+
+  // เช็คฟอร์มให้ครบ
+  function validateForm() {
+    const phoneVal = phoneInput.value.trim();
+    const timeVal = timeInput.value;
+    const phoneValid = /^[0-9]{9,10}$/.test(phoneVal);
+    const timeValid = timeVal !== "";
+    submitBtn.disabled = !(phoneValid && timeValid);
+    if(!phoneValid && phoneVal.length > 0) {
+      statusMsg.textContent = "กรุณากรอกเบอร์โทรศัพท์ให้ถูกต้อง (9-10 ตัวเลข)";
+      statusMsg.style.color = 'orangered';
+    } else {
+      statusMsg.textContent = "";
+      statusMsg.style.color = 'var(--primary)';
+    }
+  }
+
+  // ส่งข้อมูลไป webhook Discord จริง
+  function submitOrder() {
+    submitBtn.disabled = true;
+    btnText.innerHTML = '<span class="loader"></span> กำลังส่ง...';
+    statusMsg.textContent = "";
+
+    // สร้างข้อความสำหรับ Discord webhook
+    const cc = ccSelect.value;
+    const extras = Array.from(checkboxes)
+      .filter(cb => cb.checked)
+      .map(cb => cb.parentElement.textContent.trim())
+      .join(", ") || "ไม่มีบริการเสริม";
+    const phone = phoneInput.value.trim();
+    const time = timeInput.value;
+    const total = totalEl.textContent;
+
+    const discordWebhookUrl = "https://discord.com/api/webhooks/1385899814457442374/2nophbtRTNsyeS1pzs1EX7kN5oeAsKsW1vqs-LX_tBInhWVzOqJqobLgOMA9e-mMO6zq"; // <-- เปลี่ยนเป็น webhook จริงของคุณ
+
+    const payload = {
+      username: "BK CAR CERE BOT",
+      avatar_url: "https://img5.pic.in.th/file/secure-sv1/BK6bb1d716850b79f2.png",
+      embeds: [{
+        title: "มีลูกค้าทำการจองบริการล้างรถมอไซค์",
+        color: 3447003,
+        fields: [
+          { name: "รถมอไซค์", value: `${cc} cc`, inline: true },
+          { name: "บริการเสริม", value: extras, inline: true },
+          { name: "เบอร์ติดต่อ", value: phone, inline: true },
+          { name: "เวลาที่จอง", value: time, inline: true },
+          { name: "รวมทั้งหมด", value: `${total} บาท`, inline: true }
+        ],
+        timestamp: new Date().toISOString()
+      }]
+    };
+
+    fetch(discordWebhookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    })
+    .then(res => {
+      if (res.ok) {
+        statusMsg.textContent = "ขอบคุณครับ! ระบบได้รับข้อมูลของคุณแล้ว";
+        statusMsg.style.color = 'limegreen';
+
+        // รีเซ็ตฟอร์ม
+        ccSelect.value = "100";
+        checkboxes.forEach(cb => cb.checked = false);
+        phoneInput.value = "";
+        timeInput.value = "";
+        calculateTotal();
+      } else {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+    })
+    .catch(err => {
+      statusMsg.textContent = "เกิดข้อผิดพลาดในการส่งข้อมูล กรุณาลองใหม่อีกครั้ง";
+      statusMsg.style.color = 'orangered';
+      console.error(err);
+    })
+    .finally(() => {
+      submitBtn.disabled = false;
+      btnText.textContent = "ยืนยันการจอง";
+    });
+  }
+
+  // Event listeners
+  ccSelect.addEventListener("change", calculateTotal);
+  checkboxes.forEach(cb => cb.addEventListener("change", calculateTotal));
+  phoneInput.addEventListener("input", validateForm);
+  timeInput.addEventListener("input", validateForm);
+
+  // เริ่มต้น
+  calculateTotal();
+  validateForm();
+</script>
+
+</body>
+</html>

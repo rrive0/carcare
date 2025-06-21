@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>BK CAR CERE - หน้าแรก</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=Kanit&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --primary: #00bfa5;
+      --primary-dark: #009e8f;
+      --bg-dark: #121212;
+      --bg-section: #1e1e1e;
+      --text-light: #e0e0e0;
+      --text-muted: #999;
+      --radius: 12px;
+      --shadow-glow: 0 0 8px var(--primary);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Kanit', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
+      background: var(--bg-section);
+      color: var(--primary);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 0 15px rgba(0, 191, 165, 0.4);
+      flex-shrink: 0;
+      border-radius: var(--radius) var(--radius) 0 0;
+      user-select: none;
+    }
+    .navbar h1 {
+      font-size: 1.6rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-shadow: 0 0 6px var(--primary);
+      cursor: default;
+    }
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+    }
+    .navbar li {
+      cursor: pointer;
+      transition: color 0.3s, text-shadow 0.3s;
+      font-weight: 600;
+      color: var(--text-muted);
+      user-select: none;
+      outline: none;
+    }
+    .navbar li:hover,
+    .navbar li:focus,
+    .navbar li.active {
+      color: var(--primary);
+      text-shadow: 0 0 8px var(--primary);
+    }
+
+    .header {
+      background: url('https://img5.pic.in.th/file/secure-sv1/BK6bb1d716850b79f2.png') center/cover no-repeat;
+      color: var(--text-light);
+      padding: 6rem 2rem 5rem;
+      text-align: center;
+      flex-shrink: 0;
+      position: relative;
+      user-select: none;
+    }
+    .header::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 191, 165, 0.55);
+      mix-blend-mode: multiply;
+      border-radius: 0 0 var(--radius) var(--radius);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .header h2 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.8);
+    }
+    .header p {
+      font-size: 1.3rem;
+      font-weight: 500;
+      position: relative;
+      z-index: 1;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
+    }
+
+    main.content {
+      max-width: 800px;
+      margin: 3rem auto 4rem;
+      background: var(--bg-section);
+      padding: 2rem 2.5rem;
+      border-radius: var(--radius);
+      box-shadow: 0 6px 25px rgba(0, 191, 165, 0.3);
+      width: 90%;
+      flex-grow: 1;
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: var(--text-light);
+      user-select: text;
+    }
+    main.content h3 {
+      margin-bottom: 1rem;
+      color: var(--primary);
+      text-shadow: 0 0 6px var(--primary);
+    }
+    main.content a {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    main.content a:hover,
+    main.content a:focus {
+      color: var(--primary-dark);
+      text-decoration: underline;
+      outline: none;
+    }
+
+    footer.footer {
+      background-color: var(--bg-section);
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+      color: var(--primary);
+      box-shadow: inset 0 1px 0 rgba(255 255 255 / 0.05);
+      user-select: none;
+      flex-shrink: 0;
+      border-radius: 0 0 var(--radius) var(--radius);
+    }
+    .footer-left p {
+      margin: 0.2rem 0;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--primary);
+      text-shadow: 0 0 6px var(--primary);
+    }
+    .footer-left a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      margin-right: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: color 0.3s;
+      text-shadow: 0 0 6px var(--primary);
+    }
+    .footer-left a:hover,
+    .footer-left a:focus {
+      color: var(--primary-dark);
+      outline: none;
+    }
+    .footer-right {
+      font-weight: 600;
+      text-align: right;
+      min-width: 180px;
+      color: var(--primary);
+      text-shadow: 0 0 6px var(--primary);
+    }
+
+    @media (max-width: 600px) {
+      .footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        text-align: left;
+      }
+      .footer-right {
+        text-align: left;
+        min-width: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" role="navigation" aria-label="หลัก">
+    <h1><i class="fas fa-motorcycle"></i> BK CAR CERE</h1>
+    <ul role="menubar">
+      <li role="menuitem" tabindex="0" class="active" onclick="location.href='index.html'">หน้าแรก</li>
+      <li role="menuitem" tabindex="0" onclick="location.href='services.html'">บริการ</li>
+      <li role="menuitem" tabindex="0" onclick="alert('หน้า ติดต่อ กำลังพัฒนา')">ติดต่อ</li>
+    </ul>
+  </nav>
+
+  <header class="header" role="banner">
+    <h2>บริการล้างรถมอไซค์พรีเมียม</h2>
+    <p>ดูแลรถของคุณด้วยทีมมืออาชีพ</p>
+  </header>
+
+  <main class="content" role="main">
+    <h3>ยินดีต้อนรับสู่ BK CAR CERE</h3>
+    <p>เรามีบริการล้างรถมอไซค์ที่ครบวงจร ด้วยทีมงานมืออาชีพ ใส่ใจในทุกรายละเอียด พร้อมบริการเสริมที่ช่วยดูแลรถของคุณให้เงางามและพร้อมลุยทุกเส้นทาง</p>
+    <p>สามารถเข้าไปดู <a href="menu.html">เมนูบริการ</a> เพื่อเลือกบริการที่ต้องการ และอย่าลืมจองคิวกับเราเพื่อความสะดวกรวดเร็ว</p>
+    <p>โทร: 063 721 7670 หรือ แอดไลน์ BKBIKEWASH เพื่อสอบถามข้อมูลเพิ่มเติม</p>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-left">
+      <p><i class="fas fa-phone"></i> 063 721 7670</p>
+      <p>
+        <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fab fa-facebook"></i> Facebook</a>
+        <a href="https://www.instagram.com/nnwxt_/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i> Instagram</a>
+      </p>
+    </div>
+    <div class="footer-right">
+      © 2025 BK CAR CERE - บริการล้างรถมอไซค์ครบวงจร
+    </div>
+  </footer>
+
+</body>
+</html>
